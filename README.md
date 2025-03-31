@@ -1,7 +1,7 @@
 # Gandiva: Cloud Security Posture Management (CSPM)
 
 Gandiva is a comprehensive Cloud Security Posture Management (CSPM) platform designed to help organizations monitor, assess, and enhance their cloud security posture across multi-cloud environments. It provides visibility into cloud resources, identifies security vulnerabilities, and offers remediation recommendations.
-![image](https://github.com/user-attachments/assets/f13f6ec5-dd32-4667-850e-a6c791e50af7)
+
 
 
 ## How to deploy
@@ -99,6 +99,31 @@ Ensure your kubeconfig is properly set up to access your Kubernetes clusters.
 - [Backend Documentation](./backend/README.md)
 - [Frontend Documentation](./frontend/README.md)
 - [Authentication Guide](./frontend/README-AUTH.md)
+
+![image](https://github.com/user-attachments/assets/e636a9d2-46aa-476b-92b6-2272378507fb)
+
+![image](https://github.com/user-attachments/assets/f13f6ec5-dd32-4667-850e-a6c791e50af7)
+
+![image](https://github.com/user-attachments/assets/ef22557e-018d-4ab6-a4d2-1a45a14f4b43)
+
+![image](https://github.com/user-attachments/assets/9273ba0d-d202-4eb4-8d56-3f57a845bcc6)
+
+![image](https://github.com/user-attachments/assets/0013c9fb-edb6-4abc-ab8d-c9c1e5881a61)
+
+![image](https://github.com/user-attachments/assets/fdb15953-5b67-437b-a286-f02e37a07f15)
+
+![image](https://github.com/user-attachments/assets/2d0cc619-ec66-4ea2-8be6-87a86e1e85e6)
+
+![image](https://github.com/user-attachments/assets/41798c86-9a46-41c4-9fb9-a5b6d11389f3)
+
+![image](https://github.com/user-attachments/assets/ebcef7bc-58ee-4b7d-949b-7543c6d46fae)
+
+![image](https://github.com/user-attachments/assets/eb5063ef-53aa-491d-a840-80b5a47bddb3)
+
+
+
+
+
 
 
 
