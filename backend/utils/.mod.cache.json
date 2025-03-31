@@ -1,0 +1,20 @@
+{
+  "local": {
+    "github.com/turbot/steampipe-mod-aws-compliance": {
+      "version": "1.3.1",
+      "name": "github.com/turbot/steampipe-mod-aws-compliance",
+      "commit": "f3afd8535f097acdec4845c77bbf4dfac8b70c40",
+      "git_ref": "refs/tags/v1.3.1",
+      "struct_version": 20240429,
+      "alias": "aws_compliance"
+    },
+    "github.com/turbot/steampipe-mod-kubernetes-compliance": {
+      "version": "1.0.1",
+      "name": "github.com/turbot/steampipe-mod-kubernetes-compliance",
+      "commit": "70ea6969888ec39484b5a1b3927941b54e10e854",
+      "git_ref": "refs/tags/v1.0.1",
+      "struct_version": 20240429,
+      "alias": "kubernetes_compliance"
+    }
+  }
+}

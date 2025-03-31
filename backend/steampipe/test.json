@@ -1,0 +1,213 @@
+{
+ "columns": [
+  {
+   "name": "name",
+   "data_type": "text"
+  },
+  {
+   "name": "arn",
+   "data_type": "text"
+  },
+  {
+   "name": "creation_date",
+   "data_type": "timestamptz"
+  },
+  {
+   "name": "bucket_policy_is_public",
+   "data_type": "bool"
+  },
+  {
+   "name": "versioning_enabled",
+   "data_type": "bool"
+  },
+  {
+   "name": "versioning_mfa_delete",
+   "data_type": "bool"
+  },
+  {
+   "name": "block_public_acls",
+   "data_type": "bool"
+  },
+  {
+   "name": "block_public_policy",
+   "data_type": "bool"
+  },
+  {
+   "name": "ignore_public_acls",
+   "data_type": "bool"
+  },
+  {
+   "name": "restrict_public_buckets",
+   "data_type": "bool"
+  },
+  {
+   "name": "event_notification_configuration",
+   "data_type": "jsonb"
+  },
+  {
+   "name": "server_side_encryption_configuration",
+   "data_type": "jsonb"
+  },
+  {
+   "name": "acl",
+   "data_type": "jsonb"
+  },
+  {
+   "name": "lifecycle_rules",
+   "data_type": "jsonb"
+  },
+  {
+   "name": "logging",
+   "data_type": "jsonb"
+  },
+  {
+   "name": "object_lock_configuration",
+   "data_type": "jsonb"
+  },
+  {
+   "name": "object_ownership_controls",
+   "data_type": "jsonb"
+  },
+  {
+   "name": "policy",
+   "data_type": "jsonb"
+  },
+  {
+   "name": "policy_std",
+   "data_type": "jsonb"
+  },
+  {
+   "name": "replication",
+   "data_type": "jsonb"
+  },
+  {
+   "name": "website_configuration",
+   "data_type": "jsonb"
+  },
+  {
+   "name": "tags_src",
+   "data_type": "jsonb"
+  },
+  {
+   "name": "tags",
+   "data_type": "jsonb"
+  },
+  {
+   "name": "title",
+   "data_type": "text"
+  },
+  {
+   "name": "akas",
+   "data_type": "jsonb"
+  },
+  {
+   "name": "region",
+   "data_type": "text"
+  },
+  {
+   "name": "partition",
+   "data_type": "text"
+  },
+  {
+   "name": "account_id",
+   "data_type": "text"
+  },
+  {
+   "name": "sp_connection_name",
+   "data_type": "text"
+  },
+  {
+   "name": "sp_ctx",
+   "data_type": "jsonb"
+  },
+  {
+   "name": "_ctx",
+   "data_type": "jsonb"
+  }
+ ],
+ "rows": [
+  {
+   "_ctx": {
+    "connection_name": "aws",
+    "steampipe": {
+     "sdk_version": "5.11.4"
+    }
+   },
+   "account_id": "976136922900",
+   "acl": {
+    "Grants": [
+     {
+      "Grantee": {
+       "DisplayName": "ubuntulinuxpanda",
+       "EmailAddress": null,
+       "ID": "1de3e897ff058cea01c7fdf7221586982e313afd17f6327a665199a474e9e8dd",
+       "Type": "CanonicalUser",
+       "URI": null
+      },
+      "Permission": "FULL_CONTROL"
+     }
+    ],
+    "Owner": {
+     "DisplayName": "ubuntulinuxpanda",
+     "ID": "1de3e897ff058cea01c7fdf7221586982e313afd17f6327a665199a474e9e8dd"
+    }
+   },
+   "akas": [
+    "arn:aws:s3:::shashanktestingbucket"
+   ],
+   "arn": "arn:aws:s3:::shashanktestingbucket",
+   "block_public_acls": true,
+   "block_public_policy": true,
+   "bucket_policy_is_public": false,
+   "creation_date": "2025-03-23T11:38:10+05:30",
+   "event_notification_configuration": {
+    "EventBridgeConfiguration": null,
+    "LambdaFunctionConfigurations": null,
+    "QueueConfigurations": null,
+    "TopicConfigurations": null
+   },
+   "ignore_public_acls": true,
+   "lifecycle_rules": null,
+   "logging": null,
+   "name": "shashanktestingbucket",
+   "object_lock_configuration": null,
+   "object_ownership_controls": {
+    "Rules": [
+     {
+      "ObjectOwnership": "BucketOwnerEnforced"
+     }
+    ]
+   },
+   "partition": "aws",
+   "policy": null,
+   "policy_std": null,
+   "region": "us-east-1",
+   "replication": null,
+   "restrict_public_buckets": true,
+   "server_side_encryption_configuration": {
+    "Rules": [
+     {
+      "ApplyServerSideEncryptionByDefault": {
+       "KMSMasterKeyID": null,
+       "SSEAlgorithm": "AES256"
+      },
+      "BucketKeyEnabled": true
+     }
+    ]
+   },
+   "sp_connection_name": "aws",
+   "sp_ctx": {
+    "connection_name": "aws",
+    "steampipe": {
+     "sdk_version": "5.11.4"
+    }
+   },
+   "tags": null,
+   "tags_src": null,
+   "title": "shashanktestingbucket",
+   "versioning_enabled": false,
+   "versioning_mfa_delete": false,
+   "website_configuration": null
+  }
+ ]
+}

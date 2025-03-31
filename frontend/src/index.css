@@ -1,0 +1,371 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+ 
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+ 
+    --primary: 221.2 83.2% 53.3%;
+    --primary-foreground: 210 40% 98%;
+ 
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+ 
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+ 
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+ 
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 221.2 83.2% 53.3%;
+ 
+    --radius: 0.5rem;
+
+    --sidebar-background: 0 0% 100%;
+    --sidebar-foreground: 222.2 84% 4.9%;
+    --sidebar-primary: 222.2 47.4% 11.2%;
+    --sidebar-primary-foreground: 210 40% 98%;
+    --sidebar-accent: 210 40% 96.1%;
+    --sidebar-accent-foreground: 222.2 47.4% 11.2%;
+    --sidebar-border: 214.3 31.8% 91.4%;
+    --sidebar-ring: 221.2 83.2% 53.3%;
+  }
+ 
+  .dark {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+ 
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+ 
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+ 
+    --primary: 217.2 91.2% 59.8%;
+    --primary-foreground: 222.2 47.4% 11.2%;
+ 
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+ 
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+ 
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+ 
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+ 
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 224.3 76.3% 48%;
+
+    --sidebar-background: 222.2 84% 4.9%;
+    --sidebar-foreground: 210 40% 98%;
+    --sidebar-primary: 210 40% 98%;
+    --sidebar-primary-foreground: 222.2 47.4% 11.2%;
+    --sidebar-accent: 217.2 32.6% 17.5%;
+    --sidebar-accent-foreground: 210 40% 98%;
+    --sidebar-border: 217.2 32.6% 17.5%;
+    --sidebar-ring: 224.3 76.3% 48%;
+  }
+}
+ 
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+}
+
+/* Graph Visualization styling */
+.glassmorphism {
+  @apply bg-white/80 backdrop-blur-sm border border-gray-200;
+}
+
+.dark-glassmorphism {
+  @apply bg-gray-800/80 backdrop-blur-sm border border-gray-700;
+}
+
+.grid-pattern {
+  background-size: 15px 15px;
+  background-image: linear-gradient(to right, #f0f0f0 1px, transparent 1px), 
+                    linear-gradient(to bottom, #f0f0f0 1px, transparent 1px);
+}
+
+.dark .grid-pattern {
+  background-image: linear-gradient(to right, #2a2a2a 1px, transparent 1px), 
+                    linear-gradient(to bottom, #2a2a2a 1px, transparent 1px);
+}
+
+/* ReactFlow edge styles */
+.react-flow__edge {
+  z-index: 1;
+}
+
+.react-flow__edge-path {
+  stroke-width: 1;
+  stroke: #64748B;
+}
+
+.dark .react-flow__edge-path {
+  stroke: #94A3B8;
+}
+
+.react-flow__edge-text {
+  font-size: 10px;
+  font-weight: 400;
+  fill: #64748B;
+  text-transform: uppercase;
+  letter-spacing: 0.025em;
+}
+
+.dark .react-flow__edge-text {
+  fill: #94A3B8;
+}
+
+/* Override ReactFlow's default text background */
+.react-flow__edge-textbg {
+  fill: transparent !important;
+}
+
+/* Additional edge styling */
+.react-flow__edge.selected .react-flow__edge-path {
+  stroke-width: 2;
+  stroke: #2563EB;
+}
+
+.dark .react-flow__edge.selected .react-flow__edge-path {
+  stroke: #3B82F6;
+}
+
+.react-flow__edge.animated .react-flow__edge-path {
+  stroke-dasharray: 5;
+  animation: dashdraw 1s linear infinite;
+}
+
+@keyframes dashdraw {
+  from {
+    stroke-dashoffset: 10;
+  }
+}
+
+/* Edge hover and interaction styles */
+.react-flow__edge:hover .react-flow__edge-path {
+  stroke-width: 2;
+  stroke: #2563EB;
+}
+
+.dark .react-flow__edge:hover .react-flow__edge-path {
+  stroke: #3B82F6;
+}
+
+/* Node styles */
+.react-flow__node {
+  z-index: 2;
+}
+
+/* Ensure handles are visible */
+.react-flow__handle {
+  width: 8px;
+  height: 8px;
+  background: #64748B;
+  border: 2px solid #ffffff;
+}
+
+.dark .react-flow__handle {
+  background: #94A3B8;
+  border-color: #1F2937;
+}
+
+.react-flow__handle-top,
+.react-flow__handle-bottom,
+.react-flow__handle-left,
+.react-flow__handle-right {
+  border-radius: 50%;
+}
+
+/* Background styles */
+.react-flow__background {
+  background-color: #ffffff;
+}
+
+.dark .react-flow__background {
+  background-color: #000000;
+}
+
+/* Controls and minimap */
+.react-flow__controls {
+  background: #ffffff;
+  border-color: #e5e7eb;
+}
+
+.dark .react-flow__controls {
+  background: #1F2937;
+  border-color: #374151;
+}
+
+.react-flow__controls-button {
+  background: #f3f4f6;
+  border-color: #e5e7eb;
+  color: #374151;
+}
+
+.dark .react-flow__controls-button {
+  background: #374151;
+  border-color: #4B5563;
+  color: #e5e7eb;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.fade-in {
+  animation: fadeIn 0.3s ease-in;
+}
+
+/* Connection line styling */
+.react-flow__connection-path {
+  stroke-width: 2;
+}
+
+@layer utilities {
+  .animation-delay-2000 {
+    animation-delay: 2s;
+  }
+  .animation-delay-4000 {
+    animation-delay: 4s;
+  }
+}
+
+/* Premium Gradient Text */
+.text-gradient {
+  @apply bg-clip-text text-transparent bg-gradient-to-r from-white via-white to-white/70;
+}
+
+/* Shimmer Effect */
+.shimmer {
+  @apply relative overflow-hidden;
+}
+
+.shimmer::before {
+  @apply absolute inset-0 -translate-x-full;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.08) 50%,
+    transparent 100%
+  );
+  animation: shimmer 2s infinite;
+  content: '';
+}
+
+/* Glass Effect */
+.glass {
+  @apply backdrop-blur-sm bg-white/5 border border-white/10;
+}
+
+/* Premium Button */
+.btn-premium {
+  @apply relative px-6 py-2 rounded-full bg-gradient-to-r from-white/10 to-white/5 
+         hover:from-white/20 hover:to-white/10 border border-white/10 
+         text-white/90 transition-all duration-300 overflow-hidden;
+}
+
+.btn-premium::before {
+  @apply absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent 
+         -translate-x-full hover:translate-x-full transition-transform duration-700;
+  content: '';
+}
+
+/* Animated Background */
+.animated-bg {
+  background: linear-gradient(
+    -45deg,
+    rgba(255, 255, 255, 0.01) 25%,
+    rgba(255, 255, 255, 0.02) 50%,
+    rgba(255, 255, 255, 0.01) 75%
+  );
+  background-size: 200% 200%;
+  animation: background-shine 2s linear infinite;
+}
+
+/* Hover Card Effect */
+.hover-card {
+  @apply transform transition-all duration-300 hover:scale-[1.02] hover:shadow-xl;
+}
+
+/* Premium Border Gradient */
+.border-gradient {
+  border-image: linear-gradient(to right, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05)) 1;
+}
+
+/* Smooth Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-black/20;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-white/10 rounded-full hover:bg-white/20 transition-colors;
+}
+
+/* Premium Focus Ring */
+.focus-premium {
+  @apply focus:outline-none focus:ring-2 focus:ring-white/20 focus:ring-offset-2 focus:ring-offset-black;
+}
+
+/* Animated Dots */
+.loading-dots::after {
+  content: '...';
+  animation: dots 1.5s steps(4, end) infinite;
+}
+
+@keyframes dots {
+  0%, 20% { content: '.'; }
+  40% { content: '..'; }
+  60% { content: '...'; }
+  80%, 100% { content: ''; }
+}
+
+/* Premium Card */
+.card-premium {
+  @apply relative overflow-hidden rounded-xl bg-gradient-to-br from-white/5 to-white/[0.02] 
+         border border-white/10 backdrop-blur-sm transition-all duration-300
+         hover:from-white/10 hover:to-white/5;
+}
+
+.card-premium::before {
+  @apply absolute inset-0 bg-gradient-to-r from-transparent via-white/[0.05] to-transparent 
+         -translate-x-full hover:translate-x-full transition-transform duration-1000;
+  content: '';
+}
+
+/* Animated Gradient Text */
+.text-gradient-animated {
+  @apply bg-clip-text text-transparent bg-gradient-to-r from-white via-white/80 to-white 
+         bg-[length:200%_auto] animate-background-shine;
+}

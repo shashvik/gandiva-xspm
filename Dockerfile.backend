@@ -1,0 +1,145 @@
+# Use Ubuntu as the base image
+FROM ubuntu:latest
+
+# Set environment variables
+ENV DEBIAN_FRONTEND=noninteractive
+
+# Create a non-root user (appuser) and set up /app directory
+RUN useradd -m -s /bin/bash appuser && \
+    mkdir -p /app && \
+    chown -R appuser:appuser /app 
+
+# Install dependencies (including wget and gnupg)
+RUN apt-get update && apt-get install -y \
+    curl \
+    wget \
+    unzip \
+    tar \
+    jq \
+    git \
+    sudo \
+    gnupg \
+    software-properties-common \
+    postgresql postgresql-contrib libpq-dev \
+    && rm -rf /var/lib/apt/lists/*
+
+# Install Python 3.12
+RUN add-apt-repository ppa:deadsnakes/ppa -y && \
+    apt-get update && \
+    apt-get install -y python3.12 python3.12-venv python3.12-dev python3-pip && \
+    rm -rf /var/lib/apt/lists/*
+
+# Set Python 3.12 as default
+RUN update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.12 1 && \
+    update-alternatives --config python3
+
+# Verify installations
+RUN python3 --version
+
+
+# 1️⃣ Update package list and install dependencies
+RUN apt-get update
+RUN apt-get install -y ca-certificates curl
+
+# 2️⃣ Add Docker’s official GPG key
+RUN install -m 0755 -d /etc/apt/keyrings && \
+    curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc && \
+    chmod a+r /etc/apt/keyrings/docker.asc
+
+# 3️⃣ Add the Docker repository
+RUN echo \
+  "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu \
+  $(. /etc/os-release && echo "${UBUNTU_CODENAME:-$VERSION_CODENAME}") stable" | \
+  tee /etc/apt/sources.list.d/docker.list > /dev/null
+
+# 4️⃣ Update the package list again
+RUN apt-get update
+
+# 5️⃣ Install Docker (latest version)
+RUN apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+
+# 6️⃣ Verify installation
+RUN docker --version
+
+# Add appuser to the docker group
+RUN usermod -aG docker appuser
+RUN newgrp docker
+
+# Give appuser sudo access (no password)
+RUN usermod -aG sudo appuser && \
+    echo "appuser ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
+
+# Install Trivy (Fix for GPG key issues & Ubuntu version)
+RUN mkdir -p /etc/apt/keyrings && \
+    wget -qO - https://aquasecurity.github.io/trivy-repo/deb/public.key | gpg --dearmor | sudo tee /etc/apt/keyrings/trivy.gpg > /dev/null && \
+    echo "deb [signed-by=/etc/apt/keyrings/trivy.gpg] https://aquasecurity.github.io/trivy-repo/deb jammy main" | sudo tee /etc/apt/sources.list.d/trivy.list && \
+    apt-get update && \
+    apt-get install -y trivy && \
+    rm -rf /var/lib/apt/lists/*
+
+# Install Steampipe
+RUN curl -fsSL https://steampipe.io/install/steampipe.sh | sh
+RUN curl -fsSL https://powerpipe.io/install/powerpipe.sh | sh
+
+# Copy backend files
+COPY ./backend /app
+
+WORKDIR /app
+RUN pip3 install --no-cache-dir -r requirements.txt --break-system-packages
+
+
+# Install AWS CLI system-wide
+RUN ARCH=$(uname -m) && \
+    if [ "$ARCH" = "x86_64" ]; then \
+        curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"; \
+    else \
+        curl "https://awscli.amazonaws.com/awscli-exe-linux-aarch64.zip" -o "awscliv2.zip"; \
+    fi && \
+    unzip awscliv2.zip && \
+    ./aws/install && \
+    rm -rf aws awscliv2.zip
+
+# Create symlink for appuser
+RUN mkdir -p /home/appuser/.local/bin && \
+    ln -s /usr/local/bin/aws /home/appuser/.local/bin/aws && \
+    chown -R appuser:appuser /home/appuser/.local
+
+# Switch to the new user
+USER appuser
+WORKDIR /appuser
+
+# Install AWS plugin for Steampipe
+RUN steampipe plugin install aws
+RUN steampipe plugin install kubernetes
+
+
+# Detect architecture and install the correct AWS CLI version
+#RUN ARCH=$(uname -m) && \
+#    if [ "$ARCH" = "x86_64" ]; then \
+#        curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"; \
+#    else \
+#        curl "https://awscli.amazonaws.com/awscli-exe-linux-aarch64.zip" -o "awscliv2.zip"; \
+#    fi && \
+#    unzip awscliv2.zip -d /home/appuser/ && \
+#    /home/appuser/aws/install --install-dir /home/appuser/.local/aws-cli --bin-dir /home/appuser/.local/bin && \
+#    rm -rf /home/appuser/aws awscliv2.zip
+
+# Set PATH permanently for appuser
+ENV PATH="/home/appuser/.local/bin:${PATH}"
+
+# Expose port 5000
+EXPOSE 5000
+
+
+# Copy entrypoint script
+COPY entrypoint.sh /entrypoint.sh
+
+USER root
+# Ensure script is executable and owned by appuser
+RUN chmod +x /entrypoint.sh && chown appuser:appuser /entrypoint.sh
+RUN chown -R appuser:appuser /app 
+
+USER appuser
+WORKDIR /app
+
+ENTRYPOINT ["/entrypoint.sh"]

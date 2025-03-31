@@ -1,0 +1,28 @@
+# Use a lightweight Node.js base image
+FROM node:23.10-alpine3.21
+
+# Set environment variables
+ENV NODE_ENV=development
+
+# Create a non-root user (appuser) and set up /app directory
+RUN adduser -D -u 1008 appuser && \
+    mkdir -p /app/frontend && \
+    chown -R appuser:appuser /app
+
+# Switch to appuser before copying files
+USER appuser
+
+# Set working directory
+WORKDIR /app/frontend
+
+# Copy frontend code
+COPY --chown=appuser:appuser ./frontend /app/frontend
+
+# Install dependencies
+RUN npm install
+
+# Expose port 8080
+EXPOSE 8080
+
+# Start the application
+CMD ["npm", "run", "dev"]
