@@ -1,6 +1,7 @@
 # Gandiva: Cloud Security Posture Management (CSPM)
 
 Gandiva is a comprehensive Cloud Security Posture Management (CSPM) platform designed to help organizations monitor, assess, and enhance their cloud security posture across multi-cloud environments. It provides visibility into cloud resources, identifies security vulnerabilities, and offers remediation recommendations.
+![image](https://github.com/user-attachments/assets/f13f6ec5-dd32-4667-850e-a6c791e50af7)
 
 
 ## How to deploy
